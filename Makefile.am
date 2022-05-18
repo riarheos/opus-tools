@@ -8,7 +8,7 @@ SUBDIRS = .
 AM_CPPFLAGS = -I$(top_srcdir)/src -I$(top_srcdir)/win32 -D_FORTIFY_SOURCE=2
 AM_CFLAGS = $(OPUS_CFLAGS) $(OGG_CFLAGS)
 
-bin_PROGRAMS = opusenc opusdec opusinfo
+bin_PROGRAMS = opusenc opusmenc opusdec opusinfo
 noinst_PROGRAMS = opusrtp
 
 noinst_HEADERS = src/arch.h \
@@ -57,6 +57,11 @@ opusenc_CPPFLAGS = $(AM_CPPFLAGS)
 opusenc_CFLAGS = $(AM_CFLAGS) $(LIBOPUSENC_CFLAGS) $(FLAC_CFLAGS)
 opusenc_LDADD = $(LIBOPUSENC_LIBS) $(OPUS_LIBS) $(FLAC_LIBS) $(OGG_LIBS) $(LIBM)
 opusenc_MANS = man/opusenc.1
+
+opusmenc_SOURCES = src/opus_header.c src/opusmenc.c src/tagcompare.c src/audio-in.c src/diag_range.c src/flac.c win32/unicode_support.c
+opusmenc_CPPFLAGS = $(AM_CPPFLAGS)
+opusmenc_CFLAGS = $(AM_CFLAGS) $(LIBOPUSENC_CFLAGS) $(FLAC_CFLAGS)
+opusmenc_LDADD = $(LIBOPUSENC_LIBS) $(OPUS_LIBS) $(FLAC_LIBS) $(OGG_LIBS) $(LIBM)
 
 opusdec_SOURCES = src/opus_header.c src/wav_io.c src/wave_out.c src/opusdec.c src/resample.c src/diag_range.c win32/unicode_support.c
 opusdec_CPPFLAGS = $(AM_CPPFLAGS) $(resampler_CPPFLAGS)
